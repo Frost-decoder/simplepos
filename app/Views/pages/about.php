@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title) ?> | SimplePOS</title>
+    <title><?= esc((string) ($title ?? 'About')) ?> | SimplePOS</title>
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
@@ -19,14 +19,13 @@
         <h1>About SimplePOS</h1>
 
         <p>
-            SimplePOS is a beginner CodeIgniter 4 project that
-            demonstrates routes, controllers, views, and temporary
-            array data.
+            SimplePOS is a beginner CodeIgniter 4 project that demonstrates routes,
+            controllers, views, Models, and MySQL database integration.
         </p>
 
         <p>
-            This version does not use a database. Customer and user
-            records will come from static PHP arrays.
+            Customer and user records are retrieved from the MySQL database through
+            CodeIgniter Models and the Query Builder findAll() method.
         </p>
     </main>
 

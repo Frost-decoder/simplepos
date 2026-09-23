@@ -1,0 +1,10 @@
+Database Name: simplepos_db
+
+This project uses a MySQL database with two tables:
+customers and users.
+
+Customer records are retrieved through CustomerModel.
+User records are retrieved through UserModel.
+
+Both Models use CodeIgniter's findAll() method to retrieve
+records through Query Builder.

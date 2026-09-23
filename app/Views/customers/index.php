@@ -1,10 +1,26 @@
+<?php
+
+/** @var string $title */
+/** @var array<int, array<string, mixed>> $customers */
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title><?= esc($title) ?> | SimplePOS</title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+
+    <link
+        rel="stylesheet"
+        href="<?= base_url('css/style.css') ?>"
+    >
 </head>
 <body>
 
@@ -19,29 +35,50 @@
         <h1>Customer Accounts</h1>
 
         <p>
-            The records below come from a static PHP array
-            in the Customers controller.
+            These records were retrieved from the MySQL database
+            through CustomerModel.
         </p>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
+        <?php if (! empty($customers)): ?>
 
-            <tbody>
-                <?php foreach ($customers as $customer): ?>
+            <table>
+                <thead>
                     <tr>
-                        <td><?= esc($customer['full_name']) ?></td>
-                        <td><?= esc($customer['email']) ?></td>
-                        <td><?= esc($customer['phone']) ?></td>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Created At</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($customers as $customer): ?>
+                        <tr>
+                            <td>
+                                <?= esc($customer['full_name']) ?>
+                            </td>
+
+                            <td>
+                                <?= esc($customer['email']) ?>
+                            </td>
+
+                            <td>
+                                <?= esc($customer['phone']) ?>
+                            </td>
+
+                            <td>
+                                <?= esc($customer['created_at']) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        <?php else: ?>
+
+            <p>No customer records were found.</p>
+
+        <?php endif; ?>
     </main>
 
 </body>

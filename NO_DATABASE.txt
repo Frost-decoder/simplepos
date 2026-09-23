@@ -1,5 +1,0 @@
-This formative assessment uses static PHP arrays as temporary data
-sources, as required by the activity instructions.
-
-No database was created or used in this version of the application.
-Therefore, there is no database export for this project.
