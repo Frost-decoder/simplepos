@@ -1,30 +1,31 @@
-# SimplePOS Database Version
+# SimplePOS
 
-SimplePOS is a CodeIgniter 4 application that displays customer and user records from a MySQL database using Models and Query Builder.
+A CodeIgniter 4 POS foundation using a MySQL database.
 
 ## Features
 
-- Four working pages
-- MySQL database connection
-- CustomerModel and UserModel
-- Records retrieved using `findAll()`
-- Responsive customer and user tables
+- View customer and user records
+- Add and edit customers
+- Add and edit users
+- Customer and user form validation
+- Unique username validation
+- JPG and PNG avatar uploads up to 2 MB
+- Placeholder avatar for users without an uploaded image
+- Responsive dashboard-style layout
 
-## Database
+## Requirements
 
-- Database name: `simplepos_db`
-- Tables: `customers` and `users`
-- SQL export: `database_export/simplepos_db.sql`
+- XAMPP
+- PHP
+- MySQL
+- Composer
 
-## Local Installation
+## Setup
 
-1. Install PHP, Composer, XAMPP, and CodeIgniter 4.
-2. Copy the project into `C:\xampp\htdocs`.
-3. Start MySQL in the XAMPP Control Panel.
-4. Open phpMyAdmin.
-5. Import `database_export/simplepos_db.sql`.
-6. Copy `env` and rename the copy to `.env`.
-7. Configure `.env` with:
+1. Place the project inside `C:\xampp\htdocs`.
+2. Start Apache and MySQL in XAMPP.
+3. Import `database_export/simplepos_db.sql` in phpMyAdmin.
+4. Configure the `.env` database settings:
 
 ```ini
 database.default.hostname = localhost
@@ -32,5 +33,4 @@ database.default.database = simplepos_db
 database.default.username = root
 database.default.password =
 database.default.DBDriver = MySQLi
-database.default.DBPrefix =
 database.default.port = 3306

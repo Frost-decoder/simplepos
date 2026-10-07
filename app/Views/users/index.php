@@ -1,53 +1,60 @@
 <?php
-
-/** @var string $title */
-/** @var array<int, array<string, mixed>> $users */
-
+/**
+ * @var array<int, array{
+ *     id: int,
+ *     username: string,
+ *     full_name: string,
+ *     avatar: string|null
+ * }> $users
+ */
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>User Accounts | SimplePOS</title>
 
-    <title><?= esc($title) ?> | SimplePOS</title>
-
-    <link
-        rel="stylesheet"
-        href="<?= base_url('css/style.css') ?>"
-    >
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
 
-    <nav>
-        <a href="<?= site_url('/') ?>">Home</a>
-        <a href="<?= site_url('/about') ?>">About</a>
-        <a href="<?= site_url('/customers') ?>">Customers</a>
-        <a href="<?= site_url('/users') ?>">Users</a>
-    </nav>
+<nav>
+    <a href="<?= site_url('/') ?>">Home</a>
+    <a href="<?= site_url('/about') ?>">About</a>
+    <a href="<?= site_url('/customers') ?>">Customers</a>
+    <a href="<?= site_url('/users') ?>">Users</a>
+</nav>
 
-    <main>
-        <h1>User Accounts</h1>
+<main>
+    <div class="page-header">
+        <div>
+            <h1>User Accounts</h1>
+            <p>Manage your user records and avatars.</p>
+        </div>
 
-        <p>
-            These records were retrieved from the MySQL database
-            through UserModel.
-        </p>
+        <a href="<?= site_url('/users/new') ?>" class="button">
+            Add User
+        </a>
+    </div>
 
-        <?php if (! empty($users)): ?>
+    <?php if (session()->has('success')): ?>
+        <div class="success-message">
+            <?= esc(session('success')) ?>
+        </div>
+    <?php endif ?>
 
+    <?php if ($users !== []): ?>
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
+                        <th>Avatar</th>
                         <th>Username</th>
                         <th>Full Name</th>
-                        <th>Created At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -55,27 +62,43 @@
                     <?php foreach ($users as $user): ?>
                         <tr>
                             <td>
-                                <?= esc($user['username']) ?>
+                                <?php if (! empty($user['avatar'])): ?>
+                                    <img
+                                        src="<?= base_url('uploads/avatars/' . $user['avatar']) ?>"
+                                        alt="<?= esc($user['full_name']) ?>"
+                                        class="avatar"
+                                    >
+                                <?php else: ?>
+                                    <img
+                                        src="<?= base_url('uploads/avatars/placeholder.svg') ?>"
+                                        alt="Default avatar"
+                                        class="avatar"
+                                    >
+                                <?php endif ?>
                             </td>
 
-                            <td>
-                                <?= esc($user['full_name']) ?>
-                            </td>
+                            <td><?= esc($user['username']) ?></td>
+                            <td><?= esc($user['full_name']) ?></td>
 
                             <td>
-                                <?= esc($user['created_at']) ?>
+                                <a
+                                    href="<?= site_url('/users/edit/' . $user['id']) ?>"
+                                    class="button small"
+                                >
+                                    Edit
+                                </a>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
-
-        <?php else: ?>
-
-            <p>No user records were found.</p>
-
-        <?php endif; ?>
-    </main>
+        </div>
+    <?php else: ?>
+        <div class="empty-message">
+            No user records were found.
+        </div>
+    <?php endif ?>
+</main>
 
 </body>
 </html>

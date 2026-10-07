@@ -1,85 +1,89 @@
 <?php
-
-/** @var string $title */
-/** @var array<int, array<string, mixed>> $customers */
-
+/**
+ * @var array<int, array{
+ *     id: int,
+ *     full_name: string,
+ *     email: string,
+ *     phone: string|null
+ * }> $customers
+ */
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Customer Accounts | SimplePOS</title>
 
-    <title><?= esc($title) ?> | SimplePOS</title>
-
-    <link
-        rel="stylesheet"
-        href="<?= base_url('css/style.css') ?>"
-    >
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
 
-    <nav>
-        <a href="<?= site_url('/') ?>">Home</a>
-        <a href="<?= site_url('/about') ?>">About</a>
-        <a href="<?= site_url('/customers') ?>">Customers</a>
-        <a href="<?= site_url('/users') ?>">Users</a>
-    </nav>
+<nav>
+    <a href="<?= site_url('/') ?>">Home</a>
+    <a href="<?= site_url('/about') ?>">About</a>
+    <a href="<?= site_url('/customers') ?>">Customers</a>
+    <a href="<?= site_url('/users') ?>">Users</a>
+</nav>
 
-    <main>
-        <h1>Customer Accounts</h1>
+<main>
+    <div class="page-header">
+        <div>
+            <h1>Customer Accounts</h1>
+            <p>Manage your customer records.</p>
+        </div>
 
-        <p>
-            These records were retrieved from the MySQL database
-            through CustomerModel.
-        </p>
+        <a href="<?= site_url('/customers/new') ?>" class="button">
+            Add Customer
+        </a>
+    </div>
 
-        <?php if (! empty($customers)): ?>
+    <?php if (session()->has('success')): ?>
+        <div class="success-message">
+            <?= esc(session('success')) ?>
+        </div>
+    <?php endif ?>
 
+    <?php if ($customers !== []): ?>
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Created At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php foreach ($customers as $customer): ?>
                         <tr>
-                            <td>
-                                <?= esc($customer['full_name']) ?>
-                            </td>
+                            <td><?= esc($customer['full_name']) ?></td>
+                            <td><?= esc($customer['email']) ?></td>
+                            <td><?= esc($customer['phone'] ?? '') ?></td>
 
                             <td>
-                                <?= esc($customer['email']) ?>
-                            </td>
-
-                            <td>
-                                <?= esc($customer['phone']) ?>
-                            </td>
-
-                            <td>
-                                <?= esc($customer['created_at']) ?>
+                                <a
+                                    href="<?= site_url('/customers/edit/' . $customer['id']) ?>"
+                                    class="button small"
+                                >
+                                    Edit
+                                </a>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
-
-        <?php else: ?>
-
-            <p>No customer records were found.</p>
-
-        <?php endif; ?>
-    </main>
+        </div>
+    <?php else: ?>
+        <div class="empty-message">
+            No customer records were found.
+        </div>
+    <?php endif ?>
+</main>
 
 </body>
 </html>
