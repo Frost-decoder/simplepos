@@ -26,6 +26,14 @@
     <a href="<?= site_url('/about') ?>">About</a>
     <a href="<?= site_url('/customers') ?>">Customers</a>
     <a href="<?= site_url('/users') ?>">Users</a>
+
+    <form action="<?= site_url('logout') ?>" method="post" class="logout-form">
+    <?= csrf_field() ?>
+
+    <button type="submit" class="nav-logout">
+        Logout
+    </button>
+</form>
 </nav>
 
 <main>

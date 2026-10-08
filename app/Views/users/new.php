@@ -63,6 +63,20 @@
                 >
             </div>
 
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    minlength="8"
+                    maxlength="255"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="button">
                     Save User

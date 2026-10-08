@@ -7,11 +7,13 @@ A CodeIgniter 4 POS foundation using a MySQL database.
 - View customer and user records
 - Add and edit customers
 - Add and edit users
-- Customer and user form validation
-- Unique username validation
+- Form validation
 - JPG and PNG avatar uploads up to 2 MB
-- Placeholder avatar for users without an uploaded image
-- Responsive dashboard-style layout
+- Login and logout
+- Secure password hashing
+- Session-based authentication
+- Protected pages
+- CSRF protection
 
 ## Requirements
 
@@ -34,3 +36,24 @@ database.default.username = root
 database.default.password =
 database.default.DBDriver = MySQLi
 database.default.port = 3306
+```
+
+5. Run the database commands:
+
+```bash
+php spark migrate
+php spark db:seed UserPasswordSeeder
+```
+
+6. Start the application:
+
+```bash
+php spark serve
+```
+
+7. Open `http://localhost:8080/login`.
+
+## Test Account
+
+- Username: `admin01`
+- Password: `Staff123!`
